@@ -591,7 +591,6 @@ function post_type_movie() {
         'hierarchical' => false,
         'menu_position' => null,
         'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail' ),
-        'taxonomies' => array('category', 'post_tag'),
         'exclude_from_search' => false
     );
  
