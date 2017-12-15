@@ -43,7 +43,6 @@
 			}
 		}
 	});
-
 	// Set properties of navigation.
 	function setNavProps() {
 		navigationHeight      = $navigation.height();

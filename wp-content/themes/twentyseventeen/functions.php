@@ -414,6 +414,8 @@ function twentyseventeen_scripts() {
 
 	// Theme stylesheet.
 	wp_enqueue_style( 'twentyseventeen-style', get_stylesheet_uri() );
+	//Add custom 
+	wp_enqueue_style( 'flex-grid', get_template_directory_uri() . '/assets/css/flex-grid.css',false,'1.1','all');
 
 	// Load the dark colorscheme.
 	if ( 'dark' === get_theme_mod( 'colorscheme', 'light' ) || is_customize_preview() ) {
@@ -558,6 +560,44 @@ function twentyseventeen_widget_tag_cloud_args( $args ) {
 
 	return $args;
 }
+
+// La función no será utilizada antes del 'init'.
+add_action( 'init', 'post_type_movie' );
+/* Here's how to create your customized labels */
+function post_type_movie() {
+	$labels = array(
+	'name' => _x( 'Movies', 'post type general name' ),
+        'singular_name' => _x( 'Movie', 'post type singular name' ),
+        'add_new' => _x( 'Add New', 'movies' ),
+        'add_new_item' => __( 'Add New Movie' ),
+        'edit_item' => __( 'Edit Movie' ),
+        'new_item' => __( 'New Movie' ),
+        'view_item' => __( 'Show Movie' ),
+        'search_items' => __( 'Search Movies' ),
+        'not_found' =>  __( 'Movies were not found' ),
+        'not_found_in_trash' => __( 'Movies were not found in trash' ),
+        'director'=> __('Director'),
+        'parent_item_colon' => 'Parent item',
+    ); 
+    // Creamos un array para $args
+    $args = array( 'labels' => $labels,
+        'public' => true,
+        'has_archive' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'query_var' => true,
+        'rewrite' => true,
+        'capability_type' => 'post',
+        'hierarchical' => false,
+        'menu_position' => null,
+        'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail' ),
+        'taxonomies' => array('category', 'post_tag'),
+        'exclude_from_search' => false
+    );
+ 
+    register_post_type( 'movie', $args ); /* Registramos y a funcionar */
+}
+
 add_filter( 'widget_tag_cloud_args', 'twentyseventeen_widget_tag_cloud_args' );
 
 /**
